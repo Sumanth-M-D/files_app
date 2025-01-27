@@ -64,35 +64,42 @@ const userSchema = mongoose.Schema({
   bio: {
     type: String,
     maxLength: [300, "Only 300 charecters allowed for bio"],
+    default: "",
   },
 
   addressLine_1: {
     type: String,
     maxLength: [300, "Only 300 charecters allowed "],
+    default: "",
   },
 
   addressLine_2: {
     type: String,
     maxLength: [300, "Only 300 charecters allowed "],
+    default: "",
   },
 
   city: {
     type: String,
     maxLength: [300, "Only 300 charecters allowed "],
+    default: "",
   },
 
   state: {
     type: String,
     maxLength: [300, "Only 300 charecters allowed "],
+    default: "",
   },
 
   country: {
     type: String,
     maxLength: [300, "Only 300 charecters allowed "],
+    default: "",
   },
 
   zipCode: {
     type: Number,
+    default: "",
   },
 
   photo: {
@@ -102,19 +109,23 @@ const userSchema = mongoose.Schema({
 
   coverPhoto: {
     type: String,
+    default: "",
   },
 
   facebook: {
     type: String,
     maxLength: [300, "Only 600 charecters allowed "],
+    default: "",
   },
   twitterX: {
     type: String,
     maxLength: [300, "Only 600 charecters allowed "],
+    default: "",
   },
   instagram: {
     type: String,
     maxLength: [300, "Only 600 charecters allowed "],
+    default: "",
   },
 });
 

@@ -1,22 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { setIsLoading, setUserData } from "../features/userSlice";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { setUserData } from "../features/userSlice";
 import { API_BASE_URL } from "../config/config";
-
-import { RootState } from "../store";
 
 // Custom hook to load the logged-in user's data
 export function useLoadLoggedInUserData() {
   const dispatch = useDispatch();
 
-  const { isLoading: isUserDataLoading } = useSelector(
-    (state: RootState) => state.user
-  );
+  const [isUserDataLoading, setIsUserDataLoading] = useState(true);
 
   useEffect(() => {
     async function getUserData() {
       try {
-        dispatch(setIsLoading(true));
         const response = await fetch(`${API_BASE_URL}/user`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -34,7 +29,7 @@ export function useLoadLoggedInUserData() {
       } catch (error: any) {
         console.log(error.message);
       } finally {
-        dispatch(setIsLoading(false));
+        setIsUserDataLoading(false);
       }
     }
 

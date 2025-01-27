@@ -1,20 +1,32 @@
 import {
   InputFieldInterface,
-  LoginFormInputsInterface,
-  SignupFormInputsInterface,
+  ValidatorInterface,
 } from "../../interfaces/authenticationInterfac";
-import { Path, UseFormRegister, FieldError } from "react-hook-form";
+import {
+  Path,
+  UseFormRegister,
+  FieldError,
+  FieldValues,
+} from "react-hook-form";
 
-interface InputAuthPropsInterface {
+interface InputAuthPropsInterface<TFormInputs extends FieldValues> {
   fieldData: InputFieldInterface;
-  register: UseFormRegister<
-    SignupFormInputsInterface | LoginFormInputsInterface
-  >;
-  errors: Partial<Record<Path<SignupFormInputsInterface>, FieldError>>;
+  register: UseFormRegister<TFormInputs>;
+  errors: Partial<Record<Path<TFormInputs>, FieldError>>;
 }
+
 // Input component for authentication forms
-function InputAuth({ fieldData, register, errors }: InputAuthPropsInterface) {
-  const { type, name, validators, placeholder } = fieldData;
+function InputAuth<TFormInputs extends FieldValues>({
+  fieldData,
+  register,
+  errors,
+}: InputAuthPropsInterface<TFormInputs>) {
+  const { type, name, validators, placeholder } = fieldData as {
+    type: string;
+    name: Path<TFormInputs>;
+    validators: ValidatorInterface;
+    placeholder: string;
+  };
 
   return (
     <div>

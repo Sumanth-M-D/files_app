@@ -14,7 +14,7 @@ export interface LoginFormInputsInterface {
   password: string;
 }
 
-interface ValidatorInterface {
+export interface ValidatorInterface {
   required?: { value: boolean; message: string };
   pattern?: { value: RegExp; message: string };
   minLength?: { value: number; message: string };

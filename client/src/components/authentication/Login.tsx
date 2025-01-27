@@ -12,7 +12,6 @@ import {
 } from "../../interfaces/authenticationInterfac";
 import { RootState } from "../../store";
 import InputAuth from "./InputAuth";
-import { useEffect } from "react";
 
 function Login() {
   const {
@@ -23,16 +22,7 @@ function Login() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated } = useSelector(
-    (state: RootState) => state.user
-  );
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     toast.info("User already logged in");
-  //     navigate("/");
-  //   }
-  // }, [isAuthenticated, navigate]);
+  const { isLoading } = useSelector((state: RootState) => state.user);
 
   // Input fields for the login form
   const inputFields: InputFieldInterface[] = [
@@ -69,6 +59,7 @@ function Login() {
       const response = await fetch(`${API_BASE_URL}/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(body),
       });
 
@@ -77,7 +68,6 @@ function Login() {
         throw new Error(errorData.message || "Failed to sign up.");
       }
       const userData = await response.json();
-      console.log(userData);
 
       dispatch(setUserData(userData.data.user));
       navigate("/user", { replace: true });
@@ -95,7 +85,11 @@ function Login() {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         {inputFields.map((field, index) => (
           <div key={index} className="relative ">
-            <InputAuth fieldData={field} register={register} errors={errors} />
+            <InputAuth<LoginFormInputsInterface>
+              fieldData={field}
+              register={register}
+              errors={errors}
+            />
           </div>
         ))}
 

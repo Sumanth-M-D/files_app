@@ -32,7 +32,7 @@ const getFolder = asyncHandler(async function (req, res, next) {
     })
     .populate({
       path: "files",
-      select: "fileName type _id", // Limit fields populated
+      select: "fileName type _id fileUrl", // Limit fields populated
     });
 
   if (!folder) {
@@ -76,7 +76,7 @@ const createFolder = asyncHandler(async function (req, res, next) {
     })
     .populate({
       path: "files",
-      select: "fileName type _id", // Limit fields populated
+      select: "fileName type _id fileUrl", // Limit fields populated
     });
 
   respondSuccess(201, { parentFolder, newFolder }, res);

@@ -10,14 +10,19 @@ import { useLoadLoggedInUserData } from "./custom_hooks/useLoadLoggedInUserData"
 import Loader from "./components/general/Loader";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
+import { useLoadFolderData } from "./custom_hooks/useLoadFolderData";
 
 function App() {
   const { isUserDataLoading } = useLoadLoggedInUserData();
-  const { userData } = useSelector((state: RootState) => state.user);
+  const { isFolderDataLoading } = useLoadFolderData();
 
-  console.log(userData);
+  const { userData, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
 
-  if (isUserDataLoading) {
+  console.log(userData, isAuthenticated);
+
+  if (isUserDataLoading || isFolderDataLoading) {
     return (
       <div className="my-56 w-screen flex justify-center">
         <Loader />
@@ -29,7 +34,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path={`/`}
           element={
             <Protected>
               <HomePage />

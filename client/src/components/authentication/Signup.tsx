@@ -12,7 +12,6 @@ import {
 } from "../../interfaces/authenticationInterfac";
 import { RootState } from "../../store";
 import InputAuth from "./InputAuth";
-import { useEffect } from "react";
 
 function Signup() {
   const {
@@ -26,16 +25,7 @@ function Signup() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated } = useSelector(
-    (state: RootState) => state.user
-  );
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     toast.info("User already logged in");
-  //     navigate("/");
-  //   }
-  // }, [isAuthenticated, navigate]);
+  const { isLoading } = useSelector((state: RootState) => state.user);
 
   // Input fields for the signup form
   const inputFields: InputFieldInterface[] = [
@@ -107,6 +97,7 @@ function Signup() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
+        credentials: "include",
       });
 
       if (!response.ok) {
@@ -134,7 +125,11 @@ function Signup() {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         {inputFields.map((field, index) => (
           <div key={index} className="relative ">
-            <InputAuth fieldData={field} register={register} errors={errors} />
+            <InputAuth<SignupFormInputsInterface>
+              fieldData={field}
+              register={register}
+              errors={errors}
+            />
           </div>
         ))}
 

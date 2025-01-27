@@ -37,7 +37,7 @@ const createFile = asyncHandler(async function (req, res, next) {
     })
     .populate({
       path: "files",
-      select: "fileName type _id", // Limit fields populated
+      select: "fileName type _id fileUrl", // Limit fields populated
     });
 
   respondSuccess(201, { parentFolder, newFile }, res);
