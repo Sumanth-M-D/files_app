@@ -1,11 +1,30 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Protected from "./components/general/Protected";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import "react-toastify/dist/ReactToastify.css";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import UserAccountPage from "./pages/UserAccountPage";
+import { useLoadLoggedInUserData } from "./custom_hooks/useLoadLoggedInUserData";
+import Loader from "./components/general/Loader";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 
 function App() {
+  const { isUserDataLoading } = useLoadLoggedInUserData();
+  const { userData } = useSelector((state: RootState) => state.user);
+
+  console.log(userData);
+
+  if (isUserDataLoading) {
+    return (
+      <div className="my-56 w-screen flex justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -13,12 +32,20 @@ function App() {
           path="/"
           element={
             <Protected>
-              <Home />
+              <HomePage />
             </Protected>
           }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/user"
+          element={
+            <Protected>
+              <UserAccountPage />
+            </Protected>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
 
       <ToastContainer

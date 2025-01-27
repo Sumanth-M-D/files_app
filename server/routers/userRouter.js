@@ -9,10 +9,11 @@ router.post("/signup", authController.signUp);
 router.post("/login", authController.login);
 
 router.use(authController.protect); // Protect all routes that come after this middleware
-router.post("/logout", authController.logout);
 router
   .route("/")
   .get(userController.getLoggedInUser)
   .patch(userController.updateUser);
+
+router.post("/logout", authController.logout);
 
 export default router;

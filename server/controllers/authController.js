@@ -20,13 +20,18 @@ function createSendToken(user, statusCode, res) {
 
   // Set the JWT token in a secure cookie
   const cookieOptions = {
-    expires: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+    expires: new Date(
+      Date.now() + Number(JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000
+    ),
     httpOnly: true,
     sameSite: "none",
     secure: NODE_ENV === "production",
   };
+  console.log(NODE_ENV === "production");
   res.cookie("jwt", token, cookieOptions);
   user.password = undefined;
+
+  console.log("Login Token: ", token);
 
   // Send a success response with the user data and JWT token
   respondSuccess(statusCode, { user }, res, { token });
@@ -144,6 +149,10 @@ const protect = asyncHandler(async function (req, res, next) {
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
+
+  console.log(req.cookies);
+
+  console.log("Protect token 💥💥💥", token);
 
   if (!token) {
     return next(
