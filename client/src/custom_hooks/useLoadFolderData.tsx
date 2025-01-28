@@ -39,7 +39,7 @@ export function useLoadFolderData() {
     }
 
     getFolderData();
-  }, [dispatch, userData.rootFolder]);
+  }, [dispatch, userData?.rootFolder]);
 
   return { isFolderDataLoading };
 }
