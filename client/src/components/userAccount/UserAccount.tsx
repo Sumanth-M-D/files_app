@@ -144,7 +144,6 @@ function UserAccount() {
   // Submit function
   const onSubmit: SubmitHandler<UserAccountInterface> = async (data) => {
     try {
-      console.log(data);
       const response = await fetch(`${API_BASE_URL}/user/`, {
         method: "PATCH",
         headers: {
@@ -159,12 +158,10 @@ function UserAccount() {
       }
 
       const userData = await response.json();
-      console.log(userData);
 
       dispatch(setUserData(userData.data.user));
       toast.success("User data updated successfully");
     } catch (err: any) {
-      console.log(err);
       toast.error(err?.message || "Error updating user data");
     } finally {
       dispatch(setIsLoading(false));
@@ -182,7 +179,6 @@ function UserAccount() {
       const storageRef = ref(storage, `photos/${file.name}`);
       const snapshot = await uploadBytes(storageRef, file);
       const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log("Photo URL:", downloadURL);
 
       setPhoto(downloadURL); // Update local state
 
@@ -201,7 +197,6 @@ function UserAccount() {
       }
 
       const userData = await response.json();
-      console.log(userData);
 
       dispatch(setUserData(userData.data.user));
       toast.success("User photo updated successfully");
@@ -221,7 +216,6 @@ function UserAccount() {
       const storageRef = ref(storage, `coverPhotos/${file.name}`);
       const snapshot = await uploadBytes(storageRef, file);
       const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log("Cover Photo URL:", downloadURL);
 
       setCoverPhoto(downloadURL); // Update local state
 
@@ -240,7 +234,6 @@ function UserAccount() {
       }
 
       const userData = await response.json();
-      console.log(userData);
 
       dispatch(setUserData(userData.data.user));
       toast.success("User coverPhoto updated successfully");

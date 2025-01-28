@@ -4,12 +4,11 @@ import FolderComponent from "./FolderComponent";
 import FileComponent from "./FileComponent";
 import { API_BASE_URL } from "../../config/config";
 import { setFolderData } from "../../features/folderSlice";
+import { toast } from "react-toastify";
 
 function FolderBroswer() {
   const { folderData } = useSelector((state: RootState) => state.folder);
   const dispatch = useDispatch();
-
-  console.log(folderData);
 
   async function handleLoadFolder(folderID: string) {
     try {
@@ -24,11 +23,10 @@ function FolderBroswer() {
         throw new Error(errorData.message || "Failed to load folder.");
       }
       const folderData = await response.json();
-      console.log(folderData);
 
       dispatch(setFolderData(folderData.data));
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.message || "error loading folders");
     }
   }
 

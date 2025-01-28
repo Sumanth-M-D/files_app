@@ -25,15 +25,9 @@ function createSendToken(user, statusCode, res) {
     sameSite: "None",
     secure: NODE_ENV === "production",
   };
-  console.log(NODE_ENV === "production");
   res.cookie("jwt", token, cookieOptions);
 
-  console.log("💥💥");
-  console.log(res);
-  console.log(res.cookies);
   user.password = undefined;
-
-  console.log("Login Token: ", token);
 
   // Send a success response with the user data and JWT token
   respondSuccess(statusCode, { user }, res, { token });
@@ -60,7 +54,6 @@ function signJWT(id) {
 // SignUp function to handle user registration
 const signUp = asyncHandler(async function (req, res, next) {
   const { fName, lName, email, phone, password, passwordConfirm } = req.body;
-  console.log(req.body);
 
   if (!email || !password || !passwordConfirm || !fName || !lName || !phone) {
     return next(
@@ -151,10 +144,6 @@ const protect = asyncHandler(async function (req, res, next) {
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
-
-  console.log(req.cookies);
-
-  console.log("Protect token 💥💥💥", token);
 
   if (!token) {
     return next(

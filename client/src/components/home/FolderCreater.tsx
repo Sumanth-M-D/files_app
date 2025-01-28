@@ -30,7 +30,6 @@ function FolderCreater() {
         throw new Error(errorData.message || "Failed to load folder.");
       }
       const newFolderData = await response.json();
-      console.log(folderData);
 
       dispatch(setFolderData(newFolderData.data.parentFolder));
       setNewFolderName("New Folder Name");
@@ -48,7 +47,6 @@ function FolderCreater() {
       const storageRef = ref(storage, `coverPhotos/${file.name}`);
       const snapshot = await uploadBytes(storageRef, file);
       const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log("file:", downloadURL);
 
       // Send the download URL to your backend
       const response = await fetch(`${API_BASE_URL}/files/`, {

@@ -4,8 +4,6 @@ import { Path } from "react-hook-form";
 export interface SocialMediaInputInterface {
   id: Path<UserAccountInterface>;
   icon: ReactNode;
-  // value: string;
-  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface InputInterface {
@@ -14,8 +12,6 @@ export interface InputInterface {
   type: string;
   validators: ValidatorInterface;
   span: number;
-  // value: string | number;
-  // onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface ValidatorInterface {

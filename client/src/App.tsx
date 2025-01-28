@@ -20,8 +20,6 @@ function App() {
     (state: RootState) => state.user
   );
 
-  console.log(userData, isAuthenticated);
-
   if (isUserDataLoading || isFolderDataLoading) {
     return (
       <div className="my-56 w-screen flex justify-center">

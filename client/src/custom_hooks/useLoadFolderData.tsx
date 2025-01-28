@@ -4,7 +4,6 @@ import { API_BASE_URL } from "../config/config";
 
 import { RootState } from "../store";
 import { setFolderData } from "../features/folderSlice";
-import { toast } from "react-toastify";
 
 // Custom hook to load the logged-in user's data
 export function useLoadFolderData() {
@@ -30,11 +29,10 @@ export function useLoadFolderData() {
           throw new Error(errorData.message || "Failed to load folder.");
         }
         const folderData = await response.json();
-        console.log(folderData);
 
         dispatch(setFolderData(folderData.data));
       } catch (error: any) {
-        console.log(error.message);
+        console.error(error);
       } finally {
         setIsFolderDataLoading(false);
       }

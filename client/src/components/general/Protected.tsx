@@ -8,9 +8,8 @@ interface ProtectedProps {
   children: ReactNode;
 }
 
-// This component is used to protect routes that require authentication (Bookmarks page)
+// This component is used to protect routes that require authentication
 function Protected({ children }: ProtectedProps) {
-  // const navigate = useNavigate();
   const { isAuthenticated, isLoading: isUserDataLoading } = useSelector(
     (state: RootState) => state.user
   );

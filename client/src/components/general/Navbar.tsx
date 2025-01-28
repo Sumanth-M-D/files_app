@@ -23,8 +23,6 @@ function Navbar() {
         throw new Error(errorData.message || "Failed to sign up.");
       }
       const userData = await response.json();
-      console.log(response);
-      console.log(userData);
 
       dispatch(resetUserData(userData.data.user));
       navigate("/login", { replace: true });

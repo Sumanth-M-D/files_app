@@ -23,11 +23,10 @@ export function useLoadLoggedInUserData() {
           throw new Error(errorData.message || "Failed to sign up.");
         }
         const userData = await response.json();
-        console.log(userData);
 
         dispatch(setUserData(userData.data.user));
       } catch (error: any) {
-        console.log(error.message);
+        console.error(error);
       } finally {
         setIsUserDataLoading(false);
       }
