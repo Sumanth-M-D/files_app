@@ -8,17 +8,11 @@ import SignupPage from "./pages/SignupPage";
 import UserAccountPage from "./pages/UserAccountPage";
 import { useLoadLoggedInUserData } from "./custom_hooks/useLoadLoggedInUserData";
 import Loader from "./components/general/Loader";
-import { useSelector } from "react-redux";
-import { RootState } from "./store";
 import { useLoadFolderData } from "./custom_hooks/useLoadFolderData";
 
 function App() {
   const { isUserDataLoading } = useLoadLoggedInUserData();
   const { isFolderDataLoading } = useLoadFolderData();
-
-  const { userData, isAuthenticated } = useSelector(
-    (state: RootState) => state.user
-  );
 
   if (isUserDataLoading || isFolderDataLoading) {
     return (
